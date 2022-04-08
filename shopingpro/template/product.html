@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!---metadescription start--->
+{% block metadescription %}
+
+        {{ product.description|truncatewords:155 }}
+
+{% endblock %}
+<!---metadescription start--->
+
+<!--Header/title start--->
+{% block title %}
+    {% if category %}
+        {{ product.name }} - BroadWay online Store
+
+    {% endif %}
+{% endblock %}
+{% block content %}
+
+<div>
+    <div>
+        <p><a href="{% url 'shop:allProdCat' %}">Home</a> | <a href="{{product.category.get_url}}">{{product.category}}</a>{{product.name}}</p>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="{{product.image.url}}" alt="{{product.name}}" height="550px" width="100%">
+    </div>
+    <div class="col">
+      <h1>{{product.name}}</h1>
+            <h4>Price: &#8377; {{product.price}}</h4>
+            <h6><u>Product Description</u></h6>
+            <p>{{product.description}}</p>
+            {% if product.stock <= 0 %}
+            <p> OUT OF STOCK</p>
+            {% else %}
+            <a class="btn btn-success" href="{% url 'cart:add_cart' product.id%}">Add to Cart</a>
+            {% endif %}
+    </div>
+    </div>
+    </div>
+    {% endblock %}
